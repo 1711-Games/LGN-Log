@@ -31,6 +31,7 @@ struct LGNLogger: LogHandler {
     public var metadata = Logging.Logger.Metadata()
 
     public static var logLevel: Logging.Logger.Level = .info
+    public static var includeTimezone = true
 
     private var _logLevel: Logging.Logger.Level? = nil
     public var logLevel: Logging.Logger.Level {
@@ -67,7 +68,11 @@ struct LGNLogger: LogHandler {
         function: String,
         line: UInt
     ) {
-        let date = Date().description.replacingOccurrences(of: " +0000", with: "")
+        var date = Date().description
+        if !Self.includeTimezone {
+            date = date.replacingOccurrences(of: " +0000", with: "")
+        }
+
         let _file = file.split(separator: "/").last!
         let _label: String = (self.logLevel <= .debug ? label : nil).map { " [\($0)]" } ?? ""
         let at = "\(date) @ \(_file.replacingOccurrences(of: ".swift", with: "")):\(line)"
