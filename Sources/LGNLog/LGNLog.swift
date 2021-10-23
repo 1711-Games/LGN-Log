@@ -23,7 +23,7 @@ extension Logging.Logger.MetadataValue: Encodable {
     }
 }
 
-struct LGNLogger: LogHandler {
+public struct LGNLogger: LogHandler {
     enum E: Error {
         case DataToJSONConvertionError
     }
