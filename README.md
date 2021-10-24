@@ -1,6 +1,7 @@
 # LGNLog
 
-A custom logger implementation and [TaskLocal](https://developer.apple.com/documentation/swift/tasklocal?language=swift) helper for [Swift-Log](https://github.com/apple/swift-log).
+A custom logger implementation and [TaskLocal](https://developer.apple.com/documentation/swift/tasklocal?language=swift)
+helper for [Swift-Log](https://github.com/apple/swift-log).
 
 # Why and how
 
@@ -45,10 +46,28 @@ Et voilà:
 [2021-10-23 14:56:55 +0000 @ main.swift:322] [custom_label] [info]: Hello (metadata: {"FileLine":"main.swift:322","RequestID":"00000000-1637-0034-1711-000000000000"})
 `
 
-As a bonus, you can always change logging level:
+Additionally, it has a few config vars:
+
+### Sets a log level globally for all loggers initiated with this backend (`.info` by default):
 
 ```swift
 LGNLogger.logLevel = .trace
 ```
 
-and it will affect logging level of all loggers created after bootstrapping LGNLogger.
+### Hides timezone from log level, saves a few bytes (`false` by default)
+
+```swift
+LGNLogger.hideTimezone = true
+```
+
+### Hides label from log message (`false` by default)
+
+```swift
+LGNLogger.hideLabel = true
+```
+
+### Fetches request ID from Metadata and puts in preamble (`requestID` by default)
+
+```swift
+LGNLogger.requestIDKey = "customRequestIDKey"
+```
