@@ -20,6 +20,7 @@ Sure enough, you can bind it to your configured logger for some async `Task` jus
 ```swift
 var logger = Logger(label: "custom_label")
 logger[metadataKey: "requestID"] = "\(UUID())"
+logger[metadataKey: "FileLine"] = "main.swift:322"
 Logger.$current.withValue(logger) {
     Logger.current.info("hello")
 }
