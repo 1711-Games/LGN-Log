@@ -43,7 +43,7 @@ LoggingSystem.bootstrap(LGNLogger.init)
 Et voilà:
 
 `
-[2021-10-23 14:56:55 +0000 @ main.swift:322] [custom_label] [info]: Hello (metadata: {"FileLine":"main.swift:322","RequestID":"00000000-1637-0034-1711-000000000000"})
+[2021-10-24 13:01:57 +0000 @ main.swift:322] [custom_label] [info] [00000000-1637-0034-1711-000000000000]: Hello (metadata: {"FileLine":"main.swift:322"})
 `
 
 Additionally, it has a few config vars:
