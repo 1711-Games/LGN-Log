@@ -31,7 +31,9 @@ public struct LGNLogger: LogHandler {
     public var metadata = Logging.Logger.Metadata()
 
     public static var logLevel: Logging.Logger.Level = .info
-    public static var includeTimezone = true
+    public static var hideTimezone = false
+    public static var hideLabel = false
+    public static var requestIDKey: String? = "requestID"
 
     private var _logLevel: Logging.Logger.Level? = nil
     public var logLevel: Logging.Logger.Level {
@@ -69,12 +71,12 @@ public struct LGNLogger: LogHandler {
         line: UInt
     ) {
         var date = Date().description
-        if !Self.includeTimezone {
+        if Self.hideTimezone {
             date = date.replacingOccurrences(of: " +0000", with: "")
         }
 
         let _file = file.split(separator: "/").last!
-        let _label: String = (self.logLevel <= .debug ? label : nil).map { " [\($0)]" } ?? ""
+        let _label: String = (!Self.hideLabel && self.logLevel <= .debug ? label : nil).map { " [\($0)]" } ?? ""
         let at = "\(date) @ \(_file.replacingOccurrences(of: ".swift", with: "")):\(line)"
         var preamble = "[\(at)]\(_label) [\(level)]"
 
@@ -83,7 +85,7 @@ public struct LGNLogger: LogHandler {
         if let metadata = metadata {
             mergedMetadata = self.metadata.merging(metadata, uniquingKeysWith: { _, new in new })
         }
-        if let requestID = mergedMetadata.removeValue(forKey: "requestID") {
+        if let requestIDKey = Self.requestIDKey, let requestID = mergedMetadata.removeValue(forKey: requestIDKey) {
             preamble.append(contentsOf: " [\(requestID)]")
         }
         if !mergedMetadata.isEmpty {
