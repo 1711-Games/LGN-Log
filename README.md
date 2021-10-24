@@ -54,7 +54,7 @@ Additionally, it has a few config vars:
 LGNLogger.logLevel = .trace
 ```
 
-### Hides timezone from log level, saves a few bytes (`false` by default)
+### Hides timezone from log message (saves a few bytes) (`false` by default)
 
 ```swift
 LGNLogger.hideTimezone = true
