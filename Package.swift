@@ -4,6 +4,7 @@ import PackageDescription
 
 let package = Package(
     name: "LGNLog",
+    platforms: [.macOS(.v12)],
     products: [
         .library(
             name: "LGNLog",
