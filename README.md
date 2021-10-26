@@ -19,7 +19,8 @@ creating new temporary loggers here and there. By default it's just a simple log
 Sure enough, you can bind it to your configured logger for some async `Task` just like that:
 ```swift
 var logger = Logger(label: "custom_label")
-logger[metadataKey: "RequestID"] = "\(UUID())"
+logger[metadataKey: "requestID"] = "\(UUID())"
+logger[metadataKey: "FileLine"] = "main.swift:322"
 Logger.$current.withValue(logger) {
     Logger.current.info("hello")
 }
@@ -31,7 +32,7 @@ And there you have it.
 Of course, default formatting isn't very pretty:
 
 `
-2021-10-23T17:51:14+0300 info custom_label : FileLine=main.swift:322 RequestID=00000000-1637-0034-1711-000000000000 Hello
+2021-10-23T17:51:14+0300 info custom_label : FileLine=main.swift:322 requestID=00000000-1637-0034-1711-000000000000 Hello
 `
 
 so this package comes with a prettier formatting. You can enable it by calling:
