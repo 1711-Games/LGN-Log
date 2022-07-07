@@ -5,14 +5,12 @@
 
 import Vapor
 
-public extension LGNLogger {
-    public struct Middleware: AsyncMiddleware {
-        public init() {}
+public struct LGNLogMiddleware: AsyncMiddleware {
+    public init() {}
 
-        public func respond(to request: Request, chainingTo next: AsyncResponder) async throws -> Response {
-            try await Logger.$current.withValue(request.logger) {
-                try await next.respond(to: request)
-            }
+    public func respond(to request: Request, chainingTo next: AsyncResponder) async throws -> Response {
+        try await Logger.$current.withValue(request.logger) {
+            try await next.respond(to: request)
         }
     }
 }

@@ -27,7 +27,10 @@ let package = Package(
         ),
         .target(
             name: "LGNLogVapor",
-            dependencies: ["LGNLog"],
+            dependencies: [
+                "LGNLog",
+                .product(name: "Logging", package: "swift-log"),
+            ],
             path: "Sources/LGNLog+Vapor"
         ),
         .testTarget(
