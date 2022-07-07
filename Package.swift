@@ -10,6 +10,10 @@ let package = Package(
             name: "LGNLog",
             targets: ["LGNLog"]
         ),
+        .library(
+            name: "LGNLogVapor",
+            targets: ["LGNLogVapor"]
+        )
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-log.git", from: "1.4.2"),
@@ -20,6 +24,11 @@ let package = Package(
             dependencies: [
                 .product(name: "Logging", package: "swift-log"),
             ]
+        ),
+        .target(
+            name: "LGNLogVapor",
+            dependencies: ["LGNLog"],
+            path: "Sources/LGNLog+Vapor"
         ),
         .testTarget(
             name: "LGNLogTests",
