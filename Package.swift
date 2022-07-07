@@ -3,7 +3,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "LGNLog",
+    name: "lgn-log",
     platforms: [.macOS(.v12)],
     products: [
         .library(
