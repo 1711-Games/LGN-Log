@@ -8,4 +8,13 @@ final class LGNLogTests: XCTestCase {
         // results.
         //XCTAssertEqual(LGN_Log().text, "Hello, World!")
     }
+
+    func testConcurrency() async throws {
+        LoggingSystem.bootstrap(LGNLogger.init)
+
+        LGNLogger.logLevel = .error
+        LGNLogger.hideTimezone = true
+        LGNLogger.hideLabel = true
+        LGNLogger.requestIDKey = "someOtherRequestID"
+    }
 }

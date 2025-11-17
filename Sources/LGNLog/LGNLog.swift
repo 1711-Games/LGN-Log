@@ -1,14 +1,14 @@
 import Foundation
 @_exported import Logging
 
-extension Logger: @unchecked Sendable {}
+extension Logger: @unchecked @retroactive Sendable {}
 
 public extension Logger {
     @TaskLocal
     static var current = Logger(label: "default")
 }
 
-extension Logging.Logger.MetadataValue: Encodable {
+extension Logging.Logger.MetadataValue: @retroactive Encodable {
     public func encode(to encoder: Encoder) throws {
         switch self {
         case let .string(string):
@@ -30,10 +30,10 @@ public struct LGNLogger: LogHandler {
 
     public var metadata = Logging.Logger.Metadata()
 
-    public static var logLevel: Logging.Logger.Level = .info
-    public static var hideTimezone = false
-    public static var hideLabel = false
-    public static var requestIDKey: String? = "requestID"
+    nonisolated(unsafe) public static var logLevel: Logging.Logger.Level = .info
+    nonisolated(unsafe) public static var hideTimezone = false
+    nonisolated(unsafe) public static var hideLabel = false
+    nonisolated(unsafe) public static var requestIDKey: String? = "requestID"
 
     private var _logLevel: Logging.Logger.Level? = nil
     public var logLevel: Logging.Logger.Level {
@@ -66,6 +66,7 @@ public struct LGNLogger: LogHandler {
         level: Logging.Logger.Level,
         message: Logging.Logger.Message,
         metadata: Logging.Logger.Metadata?,
+        source: String,
         file: String,
         function: String,
         line: UInt
